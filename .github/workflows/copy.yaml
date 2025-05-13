@@ -17,19 +17,17 @@ jobs:
       - name: 🔄 Run sync script
         run: script/sync_from_csv.sh
 
-      - name: ⚙️ Configure Git identity
+      - name: ⚙️ Set up Git configuration for GitHub Actions bot
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
       - name: 📦 Commit and push changes
         run: |
-          if [[ -n "$(git status --porcelain)" ]]; then
-            git add .
-            git commit -m "🔄 Synced files from CSV using GitHub Action"
-            git push
-          else
-            echo "✅ No changes to commit."
-          fi
+          git remote set-url origin https://github.com/${{ github.repository }}.git
+          git fetch --all
+          git add .
+          git commit -m "🔄 Synced files from CSV using GitHub Action"
+          git push
         env:
-          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}  # Using the secret PAT
