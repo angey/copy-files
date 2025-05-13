@@ -1,1 +1,33 @@
+name: 🔄 Sync Files from CSV
 
+on:
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  sync-and-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v3
+
+      - name: 🛠️ Make script executable
+        run: chmod +x copy-files/script/sync_from_csv.sh
+
+      - name: 🔄 Run sync script
+        run: ./copy-files/script/sync_from_csv.sh
+
+      - name: ⚙️ Configure Git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: 📦 Commit and push changes
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git add .
+            git commit -m "🔄 Synced files from CSV using GitHub Action"
+            git push
+          else
+            echo "✅ No changes to commit."
+          fi
