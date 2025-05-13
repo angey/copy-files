@@ -15,12 +15,12 @@ jobs:
         run: chmod +x script/sync_from_csv.sh
 
       - name: 🔄 Run sync script
-        run: ./copy-files/script/sync_from_csv.sh
+        run: script/sync_from_csv.sh
 
       - name: ⚙️ Configure Git identity
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: 📦 Commit and push changes
         run: |
