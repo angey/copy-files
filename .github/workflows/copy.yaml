@@ -31,3 +31,5 @@ jobs:
           else
             echo "✅ No changes to commit."
           fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
