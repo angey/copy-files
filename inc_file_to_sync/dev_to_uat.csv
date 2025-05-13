@@ -1,0 +1,4 @@
+type,path
+table,tables/logic_ds/copy1.txt
+external,external_tables/logic_ds/test.tbl
+table,tables/test_ds/we.txt
